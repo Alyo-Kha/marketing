@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Маркетинг — База инструментов</title>
+<meta name="description" content="25 инструментов для анализа конкурентов, аудитории и продвижения">
+<meta name="theme-color" content="#08080e">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Маркетинг">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;800&family=Geologica:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #08080e;
+  --surface: #0f0f18;
+  --card: #12121e;
+  --border: #1c1c2e;
+  --border-hover: #2a2a42;
+  --text: #e8e8f0;
+  --muted: #5a5a72;
+  --dim: #2e2e44;
+  --c1: #00e5a0;
+  --c2: #0077ff;
+  --c3: #a259ff;
+  --c4: #ff6a00;
+  --c5: #ff3c3c;
+  --c6: #ffcc00;
+  --c7: #00c4ff;
+  --free: #00c87a;
+  --freemium: #ff9500;
+  --paid: #a259ff;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: 'Geologica', sans-serif; min-height: 100vh; overflow-x: hidden; }
+body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(0,119,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(0,119,255,0.025) 1px, transparent 1px); background-size: 48px 48px; pointer-events: none; z-index: 0; }
+.wrap { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 48px 20px 80px; }
+header { margin-bottom: 56px; animation: fadeDown 0.7s ease both; }
+.header-eyebrow { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 5px; text-transform: uppercase; color: var(--c1); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+.header-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--c1); }
+h1 { font-family: 'Unbounded', sans-serif; font-size: clamp(32px, 6vw, 64px); font-weight: 800; line-height: 1.05; letter-spacing: -2px; margin-bottom: 20px; }
+h1 em { font-style: normal; color: var(--c2); }
+.header-desc { color: var(--muted); font-size: 15px; font-weight: 300; line-height: 1.7; max-width: 520px; }
+.stats { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 40px; animation: fadeDown 0.7s 0.1s ease both; }
+.stat { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 20px; flex: 1; min-width: 100px; }
+.stat-n { font-family: 'Unbounded', sans-serif; font-size: 22px; font-weight: 800; margin-bottom: 3px; }
+.stat-l { font-size: 10px; color: var(--muted); font-weight: 300; letter-spacing: 0.5px; }
+.search-wrap { margin-bottom: 28px; animation: fadeDown 0.7s 0.15s ease both; }
+.search-box { width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 15px 20px 15px 50px; color: var(--text); font-family: 'Geologica', sans-serif; font-size: 15px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%235a5a72' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: 17px center; }
+.search-box:focus { border-color: var(--c2); box-shadow: 0 0 0 3px rgba(0,119,255,0.1); }
+.search-box::placeholder { color: var(--muted); }
+.filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 48px; animation: fadeDown 0.7s 0.2s ease both; }
+.f-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 8px 16px; color: var(--muted); font-family: 'Geologica', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 7px; white-space: nowrap; }
+.f-btn:hover { color: var(--text); border-color: var(--dim); }
+.f-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.f-btn.active[data-cat="all"]      { color: var(--text);  border-color: var(--text); }
+.f-btn.active[data-cat="content"]  { color: var(--c1); border-color: var(--c1); box-shadow: 0 0 14px rgba(0,229,160,0.15); }
+.f-btn.active[data-cat="audience"] { color: var(--c2); border-color: var(--c2); box-shadow: 0 0 14px rgba(0,119,255,0.15); }
+.f-btn.active[data-cat="channels"] { color: var(--c3); border-color: var(--c3); box-shadow: 0 0 14px rgba(162,89,255,0.15); }
+.f-btn.active[data-cat="seo"]      { color: var(--c4); border-color: var(--c4); box-shadow: 0 0 14px rgba(255,106,0,0.15); }
+.f-btn.active[data-cat="maps"]     { color: var(--c5); border-color: var(--c5); box-shadow: 0 0 14px rgba(255,60,60,0.15); }
+.f-btn.active[data-cat="mentions"] { color: var(--c6); border-color: var(--c6); box-shadow: 0 0 14px rgba(255,204,0,0.15); }
+.f-btn.active[data-cat="auto"]     { color: var(--c7); border-color: var(--c7); box-shadow: 0 0 14px rgba(0,196,255,0.15); }
+.section { margin-bottom: 48px; animation: fadeUp 0.5s ease both; }
+.section:nth-child(1){animation-delay:0.1s} .section:nth-child(2){animation-delay:0.15s} .section:nth-child(3){animation-delay:0.2s} .section:nth-child(4){animation-delay:0.25s} .section:nth-child(5){animation-delay:0.3s} .section:nth-child(6){animation-delay:0.35s} .section:nth-child(7){animation-delay:0.4s} .section:nth-child(8){animation-delay:0.45s}
+.section-head { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.section-icon { font-size: 18px; }
+.section-title { font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; }
+.section-line { flex: 1; height: 1px; background: var(--border); }
+.section-count { font-size: 11px; color: var(--muted); }
+.section-desc { font-size: 12px; color: var(--muted); margin-bottom: 16px; font-style: italic; padding-left: 2px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; color: var(--text); display: flex; flex-direction: column; gap: 10px; position: relative; overflow: hidden; transition: transform 0.22s, border-color 0.22s, box-shadow 0.22s; cursor: pointer; }
+.card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); opacity: 0; transition: opacity 0.22s; }
+.card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 12px 40px -12px var(--accent); }
+.card:hover::before { opacity: 1; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.card-name { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700; line-height: 1.3; }
+.card-arrow { color: var(--muted); font-size: 16px; transition: transform 0.2s, color 0.2s; flex-shrink: 0; margin-top: 1px; }
+.card:hover .card-arrow { transform: translate(3px,-3px); color: var(--accent); }
+.card-desc { font-size: 12px; color: var(--muted); line-height: 1.6; font-weight: 300; }
+/* FIX 1: restored line-height (was split across lines in chat export) */
+.card-diff { font-size: 11px; color: #4a4a62; line-height: 1.5; font-style: italic; border-top: 1px solid var(--border); padding-top: 10px; }
+.card-footer { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin-top: auto; }
+.badge { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 8px; border-radius: 100px; }
+.badge-free     { background: rgba(0,200,122,0.12); color: var(--free); }
+.badge-freemium { background: rgba(255,149,0,0.12);  color: var(--freemium); }
+.badge-paid     { background: rgba(162,89,255,0.12); color: var(--paid); }
+.badge-yt       { background: rgba(255,0,0,0.12); color: #ff4444; }
+.card-url { font-size: 10px; color: var(--muted); margin-left: auto; font-style: italic; }
+.modal-overlay { position: fixed; inset: 0; background: rgba(8,8,14,0.88); backdrop-filter: blur(10px); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal { background: var(--surface); border: 1px solid var(--border-hover); border-radius: 20px; max-width: 620px; width: 100%; max-height: 88vh; overflow-y: auto; padding: 36px; transform: translateY(20px); transition: transform 0.25s; position: relative; }
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal-close { position: absolute; top: 20px; right: 20px; background: var(--border); border: none; color: var(--muted); width: 32px; height: 32px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, color 0.2s; }
+.modal-close:hover { background: var(--border-hover); color: var(--text); }
+.modal-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
+.modal-title { font-family: 'Unbounded', sans-serif; font-size: 24px; font-weight: 800; margin-bottom: 6px; line-height: 1.2; }
+.modal-url { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+.modal-section { margin-bottom: 22px; }
+.modal-section-title { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.modal-desc { font-size: 13px; line-height: 1.75; color: var(--text); margin-bottom: 16px; }
+.modal-diff { font-size: 12px; line-height: 1.75; color: var(--muted); font-style: italic; }
+.modal-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.modal-list li { font-size: 12px; color: var(--text); display: flex; gap: 10px; line-height: 1.5; }
+/* FIX 2: replaced typographic dash – with double-dash -- in CSS variable names */
+.modal-list li::before { content: '→'; color: var(--accent-modal); flex-shrink: 0; }
+.modal-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 24px; }
+.modal-btn { display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; color: #000; font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1px; padding: 13px 22px; border-radius: 10px; text-decoration: none; transition: opacity 0.2s; }
+.modal-btn:hover { opacity: 0.85; }
+/* FIX 3: replaced typographic dashes in selectors */
+#mStepsSection .modal-list li::before { content: "→"; color: var(--accent-modal); flex-shrink: 0; }
+#mFocusSection .modal-list li::before { content: "🎯"; flex-shrink: 0; }
+#mTipsSection .modal-list li::before { content: "💡"; flex-shrink: 0; }
+/* FIX 4: replaced typographic dash in var(--muted) */
+.empty { text-align: center; padding: 80px 20px; color: var(--muted); display: none; }
+.empty-icon { font-size: 48px; margin-bottom: 16px; }
+.empty p { font-size: 15px; }
+@keyframes fadeDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeUp   { from { opacity:0; transform:translateY(20px);  } to { opacity:1; transform:translateY(0); } }
+
+.f-btn.active[data-cat="ads"]      { color: #ff2d55; border-color: #ff2d55; box-shadow: 0 0 14px rgba(255,45,85,0.15); }
+
+/* === МОБИЛЬНАЯ АДАПТАЦИЯ === */
+@media(max-width:600px){
+  .wrap { padding: 28px 14px 80px; }
+  h1 { font-size: clamp(28px,8vw,48px); letter-spacing:-1px; }
+  .stats { display: grid; grid-template-columns: repeat(3,1fr); gap:8px; }
+  .stat { padding: 11px 12px; }
+  .stat-n { font-size: 18px; }
+  .search-box { font-size: 16px; padding: 13px 16px 13px 44px; }
+  .filters { flex-wrap: nowrap; overflow-x: auto; padding-bottom:6px; scrollbar-width:none; -ms-overflow-style:none; }
+  .filters::-webkit-scrollbar { display:none; }
+  .f-btn { flex-shrink:0; min-height:44px; padding:8px 14px; }
+  .cards { grid-template-columns: 1fr !important; }
+  .card { padding: 16px; border-radius:14px; }
+  .card-name { font-size:12px; }
+  .modal { padding: 20px 16px 36px; border-radius:20px 20px 0 0; max-height:92dvh; }
+  .modal-overlay { align-items: flex-end; padding:0; }
+  .modal-overlay .modal { transform: translateY(100%); }
+  .modal-overlay.open .modal { transform: translateY(0); }
+  .modal-title { font-size:20px; padding-right:40px; }
+  .modal-eyebrow { padding-right:40px; }
+  .modal-btn { width:100%; justify-content:center; }
+}
+@media(min-width:601px) and (max-width:900px){
+  .cards { grid-template-columns: repeat(2,1fr) !important; }
+}
+/* тач-активация карточек */
+@media(hover:none){
+  .card:active { border-color:var(--accent); box-shadow:0 0 0 2px var(--accent); transform:scale(0.98); }
+}
+/* ручка модалки на мобиле */
+.modal-handle { display:none; }
+@media(max-width:600px){
+  .modal-handle { display:block; width:40px; height:4px; background:var(--border-hover); border-radius:2px; margin:0 auto 18px; }
+}
+/* водяной знак */
+#wm-author { position:fixed; bottom:14px; right:14px; font-family:'Unbounded',sans-serif; font-size:9px; font-weight:700; letter-spacing:2px; color:rgba(0,229,160,0.20); pointer-events:none; z-index:9999; text-transform:uppercase; user-select:none; -webkit-user-select:none; }
+
+.stat-click { cursor: pointer; transition: border-color 0.2s, transform 0.15s; }
+.stat-click:hover { border-color: var(--dim); transform: translateY(-2px); }
+.stat-click.active { border-color: var(--border-hover); box-shadow: 0 0 12px rgba(255,255,255,0.06); }
+@media(hover:none){ .stat-click:active { transform: scale(0.96); } }
+</style>
+</head>
+<body>
+<div id="wm-author" aria-hidden="true">© @Alyo_Kha</div>
+<div class="wrap">
+  <header>
+    <div class="header-eyebrow">Marketing Project — База знаний</div>
+    <h1>Инструменты<br><em>маркетолога</em></h1>
+    <p class="header-desc">25 инструментов для анализа конкурентов, аудитории, рекламы и продвижения. Каждый с пошаговым гайдом и объяснением зачем он нужен.</p>
+  </header>
+  <div class="stats">
+    <div class="stat stat-click" data-filter="all" title="Показать все"><div class="stat-n" id="sAll">25</div><div class="stat-l">Инструментов</div></div>
+    <div class="stat stat-click" data-filter="free" title="Только бесплатные"><div class="stat-n" style="color:var(--free)" id="sFree">13</div><div class="stat-l">Бесплатных</div></div>
+    <div class="stat stat-click" data-filter="freemium" title="Только Freemium"><div class="stat-n" style="color:var(--freemium)" id="sFreemium">6</div><div class="stat-l">Freemium</div></div>
+    <div class="stat stat-click" data-filter="paid" title="Только платные"><div class="stat-n" style="color:var(--paid)" id="sPaid">6</div><div class="stat-l">Платных</div></div>
+    <div class="stat"><div class="stat-n" style="color:var(--c2)" id="sVisible">25</div><div class="stat-l">Показано</div></div>
+  </div>
+  <div class="search-wrap">
+    <input class="search-box" id="search" type="text" placeholder="Поиск по названию, задаче, платформе...">
+  </div>
+  <div class="filters">
+    <button class="f-btn active" data-cat="all"><span class="f-dot" style="background:var(--text)"></span>Все</button>
+    <button class="f-btn" data-cat="content"><span class="f-dot" style="background:var(--c1)"></span>Анализ контента</button>
+    <button class="f-btn" data-cat="audience"><span class="f-dot" style="background:var(--c2)"></span>Аудитория</button>
+    <button class="f-btn" data-cat="channels"><span class="f-dot" style="background:var(--c3)"></span>Каналы</button>
+    <button class="f-btn" data-cat="seo"><span class="f-dot" style="background:var(--c4)"></span>Сайты и SEO</button>
+    <button class="f-btn" data-cat="maps"><span class="f-dot" style="background:var(--c5)"></span>Карты</button>
+    <button class="f-btn" data-cat="mentions"><span class="f-dot" style="background:var(--c6)"></span>Упоминания</button>
+    <button class="f-btn" data-cat="auto"><span class="f-dot" style="background:var(--c7)"></span>Автоматизация</button>
+    <button class="f-btn" data-cat="ads"><span class="f-dot" style="background:#ff2d55"></span>Реклама ВК</button>
+  </div>
+  <div id="sections"></div>
+  <div class="empty" id="empty"><div class="empty-icon">🔍</div><p>Ничего не найдено. Попробуй другой запрос.</p></div>
+
+  <footer style="margin-top:64px; padding-top:32px; border-top:1px solid var(--border); text-align:center;">
+    <p style="font-size:13px; color:var(--muted); font-weight:300; line-height:1.9;">
+      Данный гайд подготовлен
+      <a href="https://vk.com/alyo_kha" target="_blank" rel="noopener" style="color:var(--c1); text-decoration:none; font-weight:500;">@Alyo_Kha</a><br>
+      Если материал полезен — автор будет рад вашей подписке на соц. сети 🙌
+    </p>
+  </footer>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <div class="modal-handle"></div>
+    <button class="modal-close" id="modalClose">✕</button>
+    <div class="modal-eyebrow" id="mEyebrow"></div>
+    <div class="modal-title" id="mTitle"></div>
+    <div class="modal-url" id="mUrl"></div>
+    <div class="modal-section">
+      <div class="modal-section-title">Что это и для кого</div>
+      <div class="modal-desc" id="mDesc"></div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">Чем отличается от похожих</div>
+      <div class="modal-diff" id="mDiff"></div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">Что умеет</div>
+      <ul class="modal-list" id="mCan"></ul>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">Ограничения</div>
+      <ul class="modal-list" id="mCant"></ul>
+    </div>
+    <div class="modal-section" id="mStepsSection">
+      <div class="modal-section-title">🚀 Как пользоваться — пошагово</div>
+      <ul class="modal-list modal-steps" id="mSteps"></ul>
+    </div>
+    <div class="modal-section" id="mFocusSection">
+      <div class="modal-section-title">🎯 На что смотреть в первую очередь</div>
+      <ul class="modal-list" id="mFocus"></ul>
+    </div>
+    <div class="modal-section" id="mTipsSection">
+      <div class="modal-section-title">💡 Лайфхаки и советы</div>
+      <ul class="modal-list" id="mTips"></ul>
+    </div>
+    <div class="modal-badges" id="mBadges"></div>
+    <a href="#" target="_blank" id="mBtn" class="modal-btn">Открыть сервис ↗</a>
+  </div>
+</div>
+
+<script>
+const CAT_META = {
+  content:  {color:'var(--c1)',icon:'🔍',title:'Анализ контента и вовлечённости',desc:'Что работает в контенте, какой ERR, какие посты цепляют аудиторию'},
+  audience: {color:'var(--c2)',icon:'👥',title:'Аудитория',desc:'Кто подписчики, реальные или боты, размер и интересы целевой аудитории'},
+  channels: {color:'var(--c3)',icon:'📊',title:'Анализ каналов и платформ',desc:'Статистика каналов, рост подписчиков, охваты — своих и чужих'},
+  seo:      {color:'var(--c4)',icon:'🌐',title:'Сайты и SEO',desc:'Трафик, позиции в поиске, ключевые слова — полная разведка сайта конкурента'},
+  maps:     {color:'var(--c5)',icon:'📍',title:'Карты и локальный бизнес',desc:'Компании без сайта, рейтинги, отзывы клиентов в геосервисах'},
+  mentions: {color:'var(--c6)',icon:'📣',title:'Мониторинг упоминаний',desc:'Что говорят о бренде в сети, тональность, PR-активность конкурентов'},
+  auto:     {color:'var(--c7)',icon:'⚙️',title:'Автоматизация и данные',desc:'Сбор данных программно и автоматические отчёты без ручного труда'},
+  ads:      {color:'#ff2d55',icon:'🎯',title:'Анализ рекламы ВКонтакте',desc:'Смотри рекламные посты конкурентов — офферы, форматы, креативы, куда ведёт трафик'},
+};
+
+const TOOLS = [
+  {id:1,name:'Popsters',url:'https://popsters.ru',cat:'content',tier:'freemium',yt:true,
+   desc:'Анализирует эффективность контента в ВК, Rutube и YouTube (в платных тарифах). Показывает какие посты выстрелили, в какое время лучше публиковать и какой формат работает у конкурентов.',
+   diff:'Фотограф момента — делает снимок контента за период. Отвечает на вопрос ЧТО работает прямо сейчас. В отличие от LiveDune не показывает динамику во времени, в отличие от JagaJam не сравнивает с нишей. YouTube доступен в платном тарифе.',
+   can:['ERR любой публичной страницы ВК, Rutube или YouTube','Топ постов по вовлечённости за любой период','Лучшее время и день для публикаций','Сравнение до 5 конкурентов на одном экране','Экспорт данных в Excel'],
+   cant:['Не показывает демографию аудитории','После пробного периода функционал сильно урезан','Не выявляет накрутку'],
+   steps:['Зайди на popsters.ru и зарегистрируйся — получишь 7 дней полного доступа','Нажми «Добавить страницу» → выбери платформу: ВКонтакте или Rutube','Вставь ссылку на страницу конкурента → нажми «Загрузить»','Выбери период — начни с «последние 30 дней»','Смотри сводку вверху: ERR%, число постов, среднее количество реакций','Нажми «Сортировать по ERR» — увидишь какие посты получили лучший отклик','Открой топ-5 постов — изучи о чём они, какой формат, заголовок, длина текста','Нажми «Худшие» — посмотри что НЕ работает. Не повторяй эти форматы','Вкладка «По дням» — найди в какие дни недели активность аудитории выше всего','Добавь 3-5 конкурентов → нажми «Сравнить» — увидишь кто реально лидирует'],
+   focus:['Топ-3 поста конкурента — изучи детально тему, формат, длину, время публикации','ERR vs подписчики — маленькая страница с ERR 8% сильнее большой с ERR 0.5%','Лучший день недели — когда аудитория активнее всего публикуй свой контент','Тип контента — видео или текст собирают больше реакций в этой нише?','Тренд ERR — растёт или падает у конкурента. Используй момент'],
+   tips:['Используй 7 дней пробного периода максимально — добавь всех конкурентов сразу и выгрузи данные в Excel','Анализируй не только конкурентов но и лидеров ниши из других городов — их форматы можно адаптировать','Смотри на посты с аномально высоким ERR — что в них особенного? Провокационный вопрос, личная история, список?','Для подкаста: смотри какие темы в постах собирают больше комментариев — именно эти темы аудитория хочет обсуждать']},
+
+  {id:2,name:'LiveDune',url:'https://livedune.ru',cat:'content',tier:'freemium',yt:true,
+   desc:'Мониторинг роста аудитории во времени. Главная фишка — выявляет накрутку через аномалии на графике роста подписчиков. Поддерживает ВКонтакте, Rutube и YouTube.',
+   diff:'Кардиограмма канала — показывает как бьётся пульс аудитории во времени. Отвечает на вопрос КАК менялась аудитория. Popsters показывает лучший контент, LiveDune показывает когда и почему рос канал. YouTube доступен в тарифах наравне с ВК.',
+   can:['График роста подписчиков по дням — ВК, Rutube, YouTube','Выявление накрутки через аномальные скачки','Охваты и ERR в динамике за месяцы','Автоматические еженедельные отчёты на email','Уведомления при резких изменениях'],
+   cant:['Не анализирует отдельные посты детально','Не показывает демографию аудитории','По Rutube данных меньше чем по ВК'],
+   steps:['Зайди на livedune.ru и зарегистрируйся','Нажми «Добавить аккаунт» → вставь ссылку на страницу конкурента в ВК','Подожди 1-2 минуты пока система собирает данные','Открой раздел «Аудитория» — смотри график роста подписчиков по дням','Ищи резкие скачки на графике — нажми на точку и посмотри что публиковали в тот день','Раздел «Охваты» — как менялись просмотры постов. Падение = проблемы с алгоритмом','Раздел «Вовлечённость» — смотри тренд ERR. Растёт или падает со временем?','Добавь ещё 2 конкурента → нажми «Сравнить» — кто растёт быстрее','Настрой еженедельный отчёт на email — будешь получать сводку автоматически'],
+   focus:['Резкий скачок без вирусного контента — признак накрутки','Рост без публикаций — подписчики растут когда не было постов = боты','ERR упал после роста подписчиков — новые подписчики не реагируют на контент','Стабильный рост — конкурент системно работает над контентом'],
+   tips:['Используй бесплатный тариф для мониторинга 3 главных конкурентов — этого достаточно для старта','Скачок роста у конкурента без накрутки = он что-то сделал правильно. Зайди и посмотри что публиковал','Настрой уведомления на резкие изменения — узнаешь первой если конкурент резко вырос','Комбинируй с Popsters: LiveDune — когда растёт, Popsters — почему растёт']},
+
+  {id:3,name:'JagaJam',url:'https://jagajam.ru',cat:'content',tier:'freemium',yt:true,
+   desc:'Сравнительная аналитика конкурентов в соцсетях включая YouTube. Строит рейтинг всех игроков ниши и показывает твоё место среди них.',
+   diff:'Турнирная таблица ниши — ставит всех конкурентов рядом. Отвечает на вопрос ГДЕ ты относительно рынка. Popsters изучает одну страницу глубоко, JagaJam сравнивает всех поверхностно но быстро. YouTube поддерживается наравне с ВК и Rutube.',
+   can:['Рейтинг конкурентов в нише по ERR и охвату — ВК, Rutube, YouTube','Поиск конкурентов которых ты не знал','Лучшее время постинга по данным всей ниши','Динамика позиций — кто растёт, кто падает','Готовые отчёты для презентации'],
+   cant:['Не выявляет накрутку подписчиков','Не анализирует текст постов','Глубокий анализ только в платном тарифе'],
+   steps:['Зайди на jagajam.ru и зарегистрируйся — получишь 14 дней полного доступа','Нажми «Создать проект» → введи название ниши — например «бизнес подкасты»','Добавь свою страницу и страницы 5-10 конкурентов','JagaJam автоматически предложит похожие страницы — добавь тех кого не знал','Смотри вкладку «Рейтинг» — на каком месте каждый конкурент по ERR и охвату','Нажми на лидера рейтинга — изучи его лучшие посты за последний месяц','Вкладка «Контент» — какой тип постов даёт лучший результат в нише','Вкладка «Активность» — в какие дни и часы аудитория ниши наиболее активна','Вкладка «Динамика» — кто из конкурентов растёт быстрее всего прямо сейчас','Выгрузи отчёт — сохрани как базу для стратегии контента'],
+   focus:['Лидер по ERR — не всегда самый крупный. Изучи его контент детально','Быстрорастущий — кто поднялся в рейтинге за месяц. Что он изменил?','Падающий лидер — его аудитория ищет альтернативу. Это твоя возможность','Своя позиция — до кого реально дотянуться за 3 месяца при хорошей работе?'],
+   tips:['14 дней пробного периода — добавь всех конкурентов в первый день и выгрузи все отчёты','JagaJam сам предлагает похожие страницы — не игнорируй эти подсказки, там конкуренты которых ты не знал','Смотри не только на топ но и на тех кто стремительно поднимается — через месяц они могут стать главными','Комбинируй JagaJam + Popsters + LiveDune — JagaJam позиция в нише, Popsters лучший контент, LiveDune динамика']},
+
+  {id:4,name:'HypeAuditor',url:'https://hypeauditor.com',cat:'audience',tier:'freemium',yt:true,
+   desc:'Проверяет качество аудитории блогеров. Показывает процент реальных подписчиков, ботов и массфолловеров. Незаменим перед приглашением гостя в подкаст. Основные платформы — YouTube и Instagram, ВК/Rutube поддерживаются с меньшей глубиной.',
+   diff:'Детектор качества — проверяет каждого подписчика на реальность. Отвечает на вопрос НАСКОЛЬКО реальна аудитория. VK Ads Cabinet показывает размер, Pepper.Ninja — кто конкретно эти люди, HypeAuditor — живые ли они. По YouTube и Instagram данных больше всего.',
+   can:['AQS — балл качества аудитории от 1 до 100','Процент реальных людей, ботов, массфолловеров','Демография и интересы аудитории блогера на YouTube, Instagram, ВК, Rutube','График роста с выявлением аномалий','Поиск похожих блогеров в нише'],
+   cant:['По ВК и Rutube данных меньше чем по Instagram','Всего 3-5 бесплатных проверок в день','Погрешность алгоритма 5-10%'],
+   steps:['Зайди на hypeauditor.com и зарегистрируйся','В строке поиска введи имя блогера или эксперта','Смотри AQS — балл качества. Ниже 40 — плохо. 40-70 — норма. Выше 70 — отлично','Блок «Подписчики» — смотри % реальных людей. Меньше 60% — аудитория накручена','Блок «Демография» — совпадает ли аудитория блогера с твоей целевой аудиторией','Блок «Интересы» — чем интересуется аудитория. Если бизнес и финансы — подходит для подкаста','График роста — ищи резкие скачки. Если был скачок без вирусного контента — куплены боты','Нажми «Похожие блогеры» — получи список экспертов в той же нише','Перенеси данные в файл «Эксперты и Гости» — AQS, % реальных, демография'],
+   focus:['AQS 1-40 — критически плохо, много ботов','AQS 40-60 — средне, есть накрутка но есть и реальная аудитория','AQS 60-75 — хорошо, норма для активных блогеров','AQS 75-100 — отлично, приоритетный выбор для сотрудничества'],
+   tips:['3-5 бесплатных проверок в день — составь список приоритетных экспертов и проверяй по одному','Не отказывай эксперту только из-за низкого AQS — иногда важнее качество контента и экспертность','Используй «Похожие блогеры» как генератор списка гостей — одна проверка даёт 10-15 похожих','Комбинируй с JagaJam: JagaJam находит активных авторов, HypeAuditor проверяет качество аудитории']},
+
+  {id:5,name:'VK Ads Cabinet',url:'https://ads.vk.com',cat:'audience',tier:'free',
+   desc:'Рекламный кабинет ВКонтакте. Даже без запуска рекламы показывает размер аудитории по любым параметрам — возраст, интересы, подписчики конкурентов.',
+   diff:'Телескоп — смотришь на аудиторию издалека. Видишь размер и интересы но не конкретных людей. Отвечает на вопрос СКОЛЬКО людей и какие они. Pepper.Ninja даёт конкретные профили, HypeAuditor проверяет качество.',
+   can:['Размер аудитории по любым параметрам в реальном времени','Фильтры: возраст, город, интересы, поведение','Аудитория подписчиков конкретных групп конкурентов','Пересечение нескольких групп конкурентов'],
+   cant:['Только ВКонтакте — другие платформы не охватывает','Нужна регистрация рекламного кабинета','Показывает потенциал, не гарантию охвата'],
+   steps:['Зайди на ads.vk.com и войди через аккаунт ВКонтакте','Нажми «Создать объявление» — выбери любой формат, это не важно','Пролистай до раздела «Настройка аудитории»','Выбери географию — например Россия или конкретный город','Укажи возраст и пол своей целевой аудитории','В разделе «Интересы» выбери категорию ниши — например «Бизнес и финансы»','Смотри на счётчик справа — он показывает размер аудитории в реальном времени','В поле «Сообщества» введи название группы конкурента — посмотри сколько их подписчиков активны','Запиши цифры аудитории — это поможет оценить потенциал ниши в ВК'],
+   focus:['Менее 50 000 — ниша узкая. Более 500 000 — ниша широкая, есть где расти','Интересы аудитории — смежные интересы рядом с нишей это идеи для тем подкаста','Подписчики конкурента — введи группу в поле «Сообщества» и увидишь активных людей','Если 70%+ сидят с телефона — контент должен быть адаптирован под мобильный формат'],
+   tips:['Не запускай рекламу — просто используй кабинет как инструмент исследования. Это абсолютно бесплатно','Введи группы 3-5 конкурентов в поле «Сообщества» одновременно — получишь общий размер аудитории ниши','Комбинируй фильтры: интерес «Бизнес» + возраст 25-45 + Москва = точный портрет ЦА с реальными цифрами','Сохрани скриншот счётчика аудитории — это твой ориентир потенциала ниши на данный момент']},
+
+  {id:6,name:'Pepper.Ninja',url:'https://pepper.ninja',cat:'audience',tier:'paid',
+   desc:'Парсер аудитории ВКонтакте. Собирает реальные профили людей из групп конкурентов и находит пересечения — ядро целевой аудитории ниши.',
+   diff:'Микроскоп — изучает конкретных людей детально. Отвечает на вопрос КТО конкретно эти люди. VK Ads Cabinet даёт размер аудитории, Pepper.Ninja даёт реальные профили для изучения.',
+   can:['Все подписчики любой публичной группы ВК','Только активная аудитория — лайкает и комментирует','Пересечение аудиторий 3-5 конкурентов одновременно','Фильтры: пол, возраст, город, семейное положение','Экспорт базы в VK Ads для таргетинга'],
+   cant:['Только ВКонтакте','Закрытые группы недоступны','Чрезмерный парсинг может нарушать правила ВК'],
+   steps:['Зайди на pepper.ninja и войди через аккаунт ВКонтакте','Нажми «Новая задача» → выбери тип «Участники сообщества»','Вставь ссылку на группу конкурента в ВК','Настрой фильтры — возраст, город, активность (только те кто лайкает)','Запусти задачу — парсинг займёт от 1 до 30 минут','Получи список ID пользователей — это аудитория конкурента','Нажми «Пересечение» — добавь 3-5 групп конкурентов. Найди людей подписанных на всех','Изучи профили 20-30 случайных людей из списка — кто они, чем занимаются','Экспортируй базу в VK Ads для таргетированной рекламы или продолжи анализ'],
+   focus:['1 конкурент — широкая аудитория, много случайных людей','2-3 конкурента — более целевая аудитория, оптимально для старта','4-5 конкурентов — очень узкое ядро ЦА, лучшая конверсия','Изучи 30-50 профилей вручную — пойми кто эти люди и на что ещё подписаны'],
+   tips:['3 бесплатные задачи в день — используй на пересечение аудиторий а не на одиночные группы','Изучи профили 50 человек из ядра ЦА вручную — это час работы но лучший портрет аудитории','Смотри на что ещё подписаны люди из ядра — найдёшь неочевидные площадки где сидит твоя аудитория','Комбинируй с VK Ads Cabinet: Pepper.Ninja даёт реальные профили, VK Ads Cabinet даёт размер']},
+
+  {id:7,name:'VK Статистика',url:'https://vk.com/stats',cat:'channels',tier:'free',
+   desc:'Официальная аналитика своей страницы и группы ВКонтакте. Охваты, подписчики, активность постов, демография — максимально детально для своего аккаунта.',
+   diff:'Только своя страница, только ВК, зато официальные данные без погрешности. Social Blade смотрит чужие каналы приблизительно — VK Статистика смотрит свой точно.',
+   can:['Охват постов по дням и неделям','Прирост и отток подписчиков с разбивкой по источникам','Демография аудитории: пол, возраст, география','Активность: лайки, комменты, репосты по постам','Экспорт данных в Excel'],
+   cant:['Только своя страница — чужую не посмотреть','Нет сравнения с конкурентами','Истории и клипы — ограниченная аналитика'],
+   steps:['Зайди на vk.com и войди в свой аккаунт','Перейди в своё сообщество или страницу','В меню справа нажми «Статистика»','Выбери период — рекомендуем начать с «последние 30 дней»','Вкладка «Охват» — смотри сколько людей видело контент','Вкладка «Посещаемость» — смотри откуда приходят люди','Вкладка «Активность» — смотри лайки, репосты, комментарии','Вкладка «Подписчики» — смотри рост и отток аудитории','Нажми «Экспорт» чтобы скачать данные в Excel'],
+   focus:['Охват уникальных — сколько разных людей увидело посты. Главная метрика','Прирост подписчиков — если минус то контент или частота не работают','ERR поста — активность ÷ охват × 100%. Норма для ВК от 3-5%','Топ постов — какие 3 поста набрали больше всего охвата. Повторяй такой формат'],
+   tips:['Сравнивай одинаковые периоды — этот месяц vs прошлый месяц. Иначе цифры ни о чём','Экспортируй данные раз в месяц в Excel — так увидишь динамику за год','Если охват резко упал — проверь не поменял ли ВК алгоритм','Для анализа ЧУЖИХ страниц используй Popsters или LiveDune']},
+
+  {id:8,name:'Rutube Studio',url:'https://studio.rutube.ru',cat:'channels',tier:'free',
+   desc:'Официальная панель аналитики для авторов Rutube. Просмотры, удержание, источники трафика, демография — всё для своего канала.',
+   diff:'Как VK Статистика но для видео на Rutube. Уникальная фишка — удержание аудитории: в какой момент зрители уходят. Social Blade смотрит чужие каналы, Rutube Studio смотрит свой глубоко.',
+   can:['Просмотры и динамика канала','График удержания аудитории по каждому видео','Источники трафика: поиск, рекомендации, внешние ссылки','Демография: пол, возраст, география','Топ видео по просмотрам и реакциям'],
+   cant:['Только свой канал','Нет сравнения с конкурентами','Данные о монетизации ограничены'],
+   steps:['Зайди на studio.rutube.ru и войди в аккаунт','В левом меню выбери «Аналитика»','Установи период — начни с «последние 28 дней»','Вкладка «Обзор» — смотри просмотры, подписчики, время просмотра','Вкладка «Контент» — найди топ-3 видео по просмотрам','Открой лучшее видео → вкладка «Удержание аудитории» — смотри когда уходят зрители','Вкладка «Аудитория» — смотри демографию: пол, возраст, география','Вкладка «Источники трафика» — откуда больше всего приходят зрители','Запиши ключевые цифры в файл анализа конкурентов для сравнения'],
+   focus:['Удержание видео — если зрители уходят в первые 30 сек проблема с началом. Норма 40-50%','Источники трафика — если 80% из поиска то тема востребована','Рост подписчиков — после каких видео был пик. Повторяй тот формат','Время просмотра — чем больше суммарное время тем лучше алгоритм продвигает канал'],
+   tips:['Rutube Studio пока уступает YouTube Analytics по глубине — это нормально, платформа молодая','Для анализа ЧУЖИХ каналов используй Social Blade — там видна публичная динамика','Сравнивай одинаковые периоды — этот месяц vs прошлый','График удержания — самый важный отчёт. Если зрители уходят на 1-2 минуте пересмотри вступление']},
+
+  {id:9,name:'Social Blade',url:'https://socialblade.com',cat:'channels',tier:'free',yt:true,
+   desc:'Независимый сервис статистики каналов. Главное — можно смотреть данные ЛЮБОГО чужого канала без доступа к нему. Изначально создан для YouTube — там самая полная и точная база.',
+   diff:'Единственный из трёх кто смотрит на ЧУЖИЕ каналы. Данные приблизительные но бесплатно и без регистрации. VK Статистика и Rutube Studio дают точные данные только для своих каналов. По YouTube данных больше всего — это родная платформа сервиса.',
+   can:['История роста подписчиков любого канала на YouTube, Rutube, Twitch','Ежедневная динамика прибавления/убыли','Рейтинг канала в общем списке платформы','Прогноз роста на 30-90 дней','Сравнение до 3 каналов одновременно'],
+   cant:['Данные приблизительные — погрешность 20-40%','По Rutube данных меньше чем по YouTube','Нет ERR и детальной аналитики постов'],
+   steps:['Зайди на socialblade.com — регистрация не нужна','В строке поиска введи название канала конкурента','Выбери платформу в фильтре: Rutube, YouTube, Twitch и др.','Нажми на найденный канал — откроется страница статистики','Смотри блок «Summary» — общие цифры: подписчики, просмотры, рейтинг','Прокрути вниз до графика — смотри динамику роста за последние 30 дней','Найди таблицу ежедневного прироста — красные строки означают потерю подписчиков','Нажми «Compare» чтобы сравнить с другим каналом','Перенеси ключевые цифры в файл анализа конкурентов'],
+   focus:['Ежедневный прирост — стабильный рост канала это хороший знак','Рейтинг страны — Топ-1000 это уже серьёзный игрок в нише','Резкие скачки — вирусное видео или внешняя реклама. Изучи что опубликовали в тот день','Прогноз роста на 90 дней — если канал удвоится он активно инвестирует в контент'],
+   tips:['Social Blade — первый инструмент для быстрой проверки конкурента. Занимает 2-3 минуты на канал','Резкое падение подписчиков у конкурента — хороший момент чтобы усилить свой контент','Сохраняй скриншоты статистики конкурентов раз в месяц — так видишь реальную динамику']},
+
+  {id:10,name:'Telemetr.me',url:'https://telemetr.me',cat:'channels',tier:'freemium',
+   desc:'Аналитика Telegram-каналов. Единственный способ узнать реальные охваты чужого Telegram-канала — платформа закрытая и своей аналитики для чужих не даёт.',
+   diff:'Закрывает Telegram который другие инструменты не видят вообще. Если конкурент активен в Telegram — без Telemetr ты слепой. Для ВК и Rutube есть другие инструменты, для Telegram только он.',
+   can:['Средний охват поста любого публичного канала','График роста подписчиков по дням','Индекс цитирования — насколько канал авторитетен','Количество и цена рекламных размещений','Поиск каналов по теме и категории'],
+   cant:['Только Telegram — ВК и Rutube не анализирует','Закрытые каналы недоступны','Нет демографии аудитории'],
+   steps:['Зайди на telemetr.me — регистрация не обязательна для базового просмотра','В поиске введи название канала или @username конкурента','Смотри блок «Обзор» — подписчики, средний охват одного поста, ER','Сравни число подписчиков и средний охват — охват 10% от подписчиков это хорошо','График роста — ищи резкие скачки. Зайди в Telegram и посмотри что публиковали в те дни','Блок «Реклама» — сколько рекламных постов в месяц','Блок «Индекс цитирования» — высокий индекс значит канал авторитетен в нише','Нажми «Похожие каналы» — получи список конкурентов и площадок для продвижения','Перенеси данные в файл анализа конкурентов'],
+   focus:['Охват 30%+ — отличный показатель, очень лояльная аудитория','Охват 15-30% — хорошо, норма для активных каналов','Охват 5-15% — средний показатель, типично для крупных каналов','Охват ниже 5% — аудитория неактивна или канал не публикует регулярно'],
+   tips:['Охват поста важнее числа подписчиков — канал с 3000 подписчиков и охватом 2500 ценнее канала с 30000 и охватом 500','Индекс цитирования — лучший показатель авторитетности в Telegram','Ищи каналы где мало рекламы — там аудитория лучше воспримет упоминание твоего подкаста','Используй для поиска гостей подкаста — эксперты с Telegram-каналом уже умеют доносить мысли']},
+
+  {id:11,name:'Яндекс Вордстат',url:'https://wordstat.yandex.ru',cat:'seo',tier:'free',
+   desc:'Показывает сколько раз люди ищут любую тему в Яндексе за месяц. Реальный спрос аудитории — не догадки. Обязателен перед созданием любого контента.',
+   diff:'Слушает аудиторию — показывает что люди ищут. Про сайты ничего не знает. SimilarWeb считает трафик, PR-CY анализирует SEO, Semrush делает всё вместе. Вордстат отвечает только на вопрос ЧТО хочет аудитория.',
+   can:['Частотность любого запроса в месяц','Список похожих запросов — идеи для контента','График сезонности за 2 года','Операторы поиска для точного анализа','Фильтр по региону и устройству'],
+   cant:['Только Яндекс — Google считается отдельно','Не анализирует сайты и каналы','Обновляется раз в месяц'],
+   steps:['Зайди на wordstat.yandex.ru и войди в аккаунт Яндекса','В строке поиска введи тему в кавычках — например «бизнес подкаст»','Смотри число слева — это количество поисков в месяц по всей России','Менее 1000 — тема узкая. 1000-10000 — нормальная ниша. Более 10000 — широкая тема','Посмотри правую колонку «Похожие запросы» — это идеи для тем эпизодов','Нажми «История запросов» — посмотри когда пик интереса к теме','Повтори для 5-7 разных формулировок своей темы — найди самую популярную'],
+   focus:['Кавычки «бизнес подкаст» — базовый оператор для проверки спроса','!восклицательный знак — точная форма слова, самый точный способ','Минус - для исключения ненужных слов из результатов','Правая колонка «Похожие запросы» — готовые идеи для контента'],
+   tips:['Всегда проверяй тему в двух вариантах: с кавычками и с !восклицательными знаками','Правая колонка «Похожие запросы» — там Яндекс сам подсказывает смежные темы','График сезонности — если пик в январе готовь контент в декабре. Публикуй за 2-3 недели до роста','Используй Вордстат перед каждым новым эпизодом — 10 минут анализа дадут уверенность что тема нужна']},
+
+  {id:12,name:'SimilarWeb',url:'https://similarweb.com',cat:'seo',tier:'free',
+   desc:'Показывает трафик любого сайта — сколько посетителей, откуда они приходят и что делают на сайте. Работает без доступа к сайту конкурента.',
+   diff:'Считает трафик — отвечает на вопрос СКОЛЬКО посетителей и ОТКУДА. Вордстат показывает спрос, PR-CY объясняет почему сайт получает трафик, Semrush даёт ключевые слова. SimilarWeb — быстрый первый взгляд.',
+   can:['Трафик любого сайта в месяц','Источники: поиск, соцсети, реклама, прямые заходы','Топ страниц сайта по трафику','Список похожих сайтов — быстрый поиск конкурентов','Сравнение до 5 сайтов одновременно'],
+   cant:['Сайты с трафиком меньше 50К — данные ненадёжны','Бесплатно только последний месяц','Погрешность 20-40%'],
+   steps:['Зайди на similarweb.com — регистрация не нужна','В строке поиска введи адрес сайта конкурента','Смотри блок «Overview» — общий трафик в месяц и основные метрики','Раздел «Traffic Sources» — откуда больше всего посетителей','Раздел «Top Pages» — какие страницы сайта самые популярные','Раздел «Keywords» — по каким запросам люди находят сайт','Раздел «Similar Sites» — получи список всех конкурентов','Перенеси данные о трафике и источниках в файл анализа конкурентов'],
+   focus:['До 10К визитов — маленький сайт. 100К-1М — крупный. 1М+ — лидер ниши','Показатель отказов выше 70% — сайт не удерживает аудиторию. Это слабость конкурента','Время на сайте больше 3 мин — контент реально читают','Доля поискового трафика выше 60% — сайт зависит от SEO. Это уязвимость конкурента'],
+   tips:['Не верь цифрам слепо — SimilarWeb даёт оценку, не точные данные. Используй для сравнения конкурентов','Раздел «Similar Sites» — самый быстрый способ найти всех конкурентов в нише','Для подкаста важен раздел «Social» — если конкуренты не работают в соцсетях это твоя точка входа','Проверяй сайты медиа и СМИ в нише — откуда они берут трафик покажет где читает твоя ЦА']},
+
+  {id:13,name:'PR-CY',url:'https://pr-cy.ru',cat:'seo',tier:'free',
+   desc:'SEO-аудит сайта конкурента. Показывает ключевые слова, позиции в поиске, технические ошибки и обратные ссылки.',
+   diff:'Заглядывает под капот — объясняет ПОЧЕМУ сайт получает или не получает трафик. SimilarWeb показывает сколько трафика, PR-CY объясняет почему. Российский сервис — по Яндексу данных больше чем у Semrush.',
+   can:['Ключевые слова по которым сайт находят','Позиции в Яндексе и Google','Видимость сайта в поиске — общий балл','Технические ошибки мешающие продвижению','Обратные ссылки — площадки для твоего PR'],
+   cant:['Не показывает точный трафик в цифрах','Молодые сайты дают мало данных','Только сайты — соцсети не анализирует'],
+   steps:['Зайди на pr-cy.ru — регистрация не нужна','В строке поиска введи адрес сайта конкурента','Нажми «Проверить» — через 10-30 секунд появится отчёт','Блок «Видимость» — смотри общий балл. Выше 30% — сайт хорошо продвигается','Блок «Ключевые слова» — выпиши топ-10 запросов по которым находят конкурента','Блок «Технические ошибки» — если много ошибок это слабое место конкурента','Блок «Обратные ссылки» — какие сайты ссылаются на конкурента','Скопируй ключевые слова конкурента в Яндекс Вордстат — проверь реальный спрос'],
+   focus:['Видимость до 10% — слабый сайт. Выше 30% — сильный игрок в SEO','Ключевые слова конкурента в топ-10 — темы с доказанным спросом','Много технических ошибок = слабость конкурента. Сделай свой сайт чище','Обратные ссылки — это площадки где стоит появиться тебе'],
+   tips:['Используй PR-CY вместе с SimilarWeb — PR-CY объясняет ПОЧЕМУ сайт получает трафик, SimilarWeb СКОЛЬКО','Ключевые слова конкурента — это готовый список тем для подкаста','Проверяй не только конкурентов но и сайты СМИ в нише — их ключевые слова покажут что читает твоя ЦА']},
+
+  {id:14,name:'Semrush',url:'https://semrush.com',cat:'seo',tier:'paid',
+   desc:'Самый мощный инструмент для SEO и конкурентной разведки. Показывает всю digital-стратегию конкурента: ключевые слова, трафик, рекламу, ссылки, пробелы.',
+   diff:'Полная разведка — объединяет всё в одном. Вордстат — спрос, SimilarWeb — трафик, PR-CY — SEO одного сайта. Semrush делает всё это плюс рекламные ключевые слова и Keyword Gap.',
+   can:['Все ключевые слова конкурента с трафиком','Keyword Gap — слова конкурентов которых нет у тебя','Рекламные ключевые слова и бюджеты','Обратные ссылки и площадки для PR','Топ страниц — лучшие темы контента в нише'],
+   cant:['По Яндексу данных меньше чем по Google','Полный доступ от $129/мес','Сложный интерфейс — много функций для новичка'],
+   steps:['Зайди на semrush.com и зарегистрируйся бесплатно — получишь 10 запросов в день','В строке поиска введи адрес сайта конкурента','Раздел «Domain Overview» — смотри общий трафик, ключевые слова, обратные ссылки','Раздел «Organic Research» → «Keywords» — список всех ключевых слов конкурента','Отсортируй ключевые слова по трафику — топ-20 слов дают 80% органического трафика','Раздел «Top Pages» — какие страницы сайта получают больше всего трафика','Раздел «Backlinks» — кто ссылается на конкурента','Раздел «Keyword Gap» — добавь себя и конкурентов. Найди слова по которым они есть а ты нет','Перенеси топ ключевых слов конкурента в Яндекс Вордстат для проверки спроса'],
+   focus:['Keyword Gap «Отсутствующие» — слова по которым все конкуренты есть а ты нет. Приоритет №1','Топ страниц конкурента — темы которые уже работают в нише','Рекламные ключевые слова — если платит деньги за запрос значит он конвертирует в клиентов','Обратные ссылки — площадки для твоего PR и продвижения'],
+   tips:['Используй 10 бесплатных запросов каждый день — за неделю соберёшь полный анализ всех конкурентов','Ключевые слова конкурента в топ-3 — темы с доказанным спросом. Создай лучший контент по этим темам','Для подкаста: топ страницы конкурента = топ темы которые интересуют аудиторию','Комбинируй Semrush и Вордстат: Semrush показывает ключевые слова конкурента, Вордстат проверяет спрос']},
+
+  {id:15,name:'Яндекс Карты',url:'https://yandex.ru/maps',cat:'maps',tier:'free',
+   desc:'Самый популярный геосервис России. Карточки компаний с отзывами — единственный способ изучить конкурентов без сайта и соцсетей.',
+   diff:'Лидер по охвату аудитории в России. Большинство россиян ищут локальный бизнес здесь. 2ГИС точнее для офлайн-бизнеса, Google Карты уникален блоком Q&A. Яндекс — первое место для поиска.',
+   can:['Все компании в нише на карте города','Рейтинг и отзывы реальных клиентов','График загруженности по часам и дням','Контакты, сайт, соцсети из одного места','Похожие места — быстрый поиск конкурентов'],
+   cant:['Онлайн-бизнес без адреса сложно найти','Нет истории изменений рейтинга','Нет трафика и охватов карточки'],
+   steps:['Открой yandex.ru/maps или приложение Яндекс Карты','В строке поиска введи категорию и город — например «маркетинговое агентство Москва»','На карте появятся метки всех компаний — это твои конкуренты','Нажми на карточку каждого конкурента — смотри рейтинг, количество отзывов, контакты','Открой вкладку «Отзывы» — читай последние 10-15 отзывов. Выписывай жалобы','Обрати внимание как компания отвечает на негативные отзывы','Посмотри фото — как выглядит офис, продукт, команда','Запиши: название, рейтинг, число отзывов, главные жалобы клиентов'],
+   focus:['Отсортируй отзывы «сначала плохие» — за 5 минут получишь все слабые места конкурента','Если одна жалоба встречается 3+ раз — это системная проблема конкурента','Как клиенты формулируют боли — используй эти слова дословно в своём контенте','Рейтинг ниже 4.0 — конкурент теряет клиентов. Изучи почему'],
+   tips:['Всегда проверяй и 2ГИС и Яндекс Карты — разные аудитории оставляют отзывы на разных платформах','В 2ГИС часто есть компании которых нет в Яндексе — особенно в малых городах','Главные жалобы на конкурентов — это твои точки отстройки. Сделай то что они делают плохо']},
+
+  {id:16,name:'2ГИС',url:'https://2gis.ru',cat:'maps',tier:'free',
+   desc:'Российский геосервис с самой точной базой офлайн-бизнеса. Обходчики проверяют компании физически — данные актуальнее чем у конкурентов.',
+   diff:'Лидер по точности данных о физическом бизнесе. Часто компании есть в 2ГИС но не в Яндексе и наоборот. Особенно силён в малых городах где Яндекс менее полный.',
+   can:['Самая полная база локального бизнеса России','Фильтрация по рейтингу, режиму работы, наличию фото','Отзывы другой аудитории чем на Яндексе','Актуальная информация о закрытии компаний'],
+   cant:['Онлайн-бизнес без адреса не представлен','Нет истории рейтинга','Ориентирован на Россию и СНГ'],
+   steps:['Зайди на 2gis.ru или открой приложение','В поиске введи категорию и город','Используй фильтр «Рейтинг» — сначала смотри лидеров с высоким рейтингом','Открой карточку каждого конкурента — читай описание услуг','Вкладка «Отзывы» — читай негативные. Выписывай повторяющиеся жалобы','Сравни количество отзывов — у кого больше тот активнее работает с клиентами','Проверь наличие сайта и соцсетей — если нет то конкурент слаб онлайн'],
+   focus:['Рейтинг ниже 4.0 — конкурент теряет клиентов. Изучи почему','Меньше 10 отзывов — не работает с репутацией. Больше 100 — серьёзный игрок','Описание услуг — как конкурент формулирует своё позиционирование'],
+   tips:['Всегда проверяй и 2ГИС и Яндекс Карты — они дополняют друг друга','В 2ГИС часто есть компании которых нет в Яндексе — особенно в b2b услугах','Если у конкурента в описании написано «10 лет на рынке» — изучи его внимательнее']},
+
+  {id:17,name:'Google Карты',url:'https://maps.google.ru',cat:'maps',tier:'free',
+   desc:'Геосервис Google с уникальным блоком Q&A — клиенты публично задают вопросы компании. Это готовое исследование болей аудитории.',
+   diff:'Уникален блоком Вопросы и Ответы которого нет в Яндексе и 2ГИС. Высокий рейтинг в Google Картах влияет на позиции сайта в поиске Google — связанные системы.',
+   can:['Рейтинг Google влияющий на SEO сайта','Блок Q&A — публичные вопросы клиентов','Фото от клиентов — честнее чем фото компании','Отзывы другой аудитории чем в Яндексе'],
+   cant:['Бизнес без физического адреса сложно найти','Нет истории рейтинга','Иногда нестабильно работает в России'],
+   steps:['Зайди на maps.google.ru','В поиске введи категорию и город','Смотри список слева — компании отсортированы по релевантности','Открой карточку конкурента — смотри рейтинг и число отзывов','Нажми «Отзывы» → отсортируй «Сначала негативные»','Найди блок «Вопросы и ответы» — там клиенты спрашивают то что их реально беспокоит','Посмотри фото загруженные клиентами — они правдивее фото компании'],
+   focus:['Блок Q&A — вопросы клиентов = их реальные страхи перед покупкой. Темы для подкаста','Вопросы без ответа у конкурента — ответь на них в своём контенте','Фото от клиентов в Google честнее — нет модерации со стороны компании'],
+   tips:['Сравни отзывы на одну компанию в Google и Яндексе — разные пользователи пишут о разных вещах','Блок Q&A — читай вопросы на которые конкурент не ответил. Это темы где он провалился','Используй все три карты: Яндекс + 2ГИС + Google. Только так получишь полную картину']},
+
+  {id:18,name:'Google Поиск',url:'https://google.ru',cat:'mentions',tier:'free',
+   desc:'Обычный Google с операторами поиска превращается в мощный инструмент мониторинга. Находит все упоминания конкурента в СМИ, блогах и форумах.',
+   diff:'Ручной но бесплатный. Google Alerts автоматизирует процесс. Для старта заменяет Brand Analytics и YouScan. Те два собирают всё автоматически — Google нужен руками но ничего не стоит.',
+   can:['Упоминания бренда в СМИ и блогах','Фильтр по дате — только свежие публикации','Поиск только на конкретном сайте (site:)','Google Alerts — автоматические уведомления'],
+   cant:['Ручной поиск — требует времени','Не определяет тональность автоматически','Закрытые группы и Telegram не индексирует'],
+   steps:['Зайди на google.ru','Введи: «Название конкурента» — посмотри первые 20 результатов','Переключись на вкладку «Новости» — смотри только СМИ-публикации','Нажми «Инструменты» → «За последний год» — только свежие упоминания','Поищи: «Название конкурента» site:vc.ru — что пишут на VC','Поищи: «Название конкурента» отзывы — что говорят клиенты','Зайди на alerts.google.com и настрой автоматические уведомления','Введи название конкурента → выбери частоту «Раз в день» → укажи email'],
+   focus:['Площадки где выступает конкурент — туда и тебе нужно попасть с экспертным материалом','Упоминания в СМИ — это PR-активность конкурента. Сколько публикаций и где','Негативные публикации — скандалы и жалобы которые конкурент хотел бы скрыть'],
+   tips:['Настрой Google Alerts сразу на старте — бесплатный мониторинг который работает 24/7','Ищи не только название компании но и имя основателя — часто упоминают человека а не компанию','Для подкаста: ищи «тема» site:vc.ru — найдёшь статьи которые уже читает твоя аудитория']},
+
+  {id:19,name:'Brand Analytics',url:'https://br-analytics.ru',cat:'mentions',tier:'paid',yt:true,
+   desc:'Автоматический мониторинг всех упоминаний бренда в реальном времени. Собирает из ВК, Rutube, YouTube, Telegram, СМИ и форумов, определяет тональность.',
+   diff:'Автоматический радар — скорость и объём его сильная сторона. YouScan глубже понимает смысл через AI, Brand Analytics быстрее и охватывает больше источников включая YouTube.',
+   can:['Все упоминания бренда в реальном времени — ВК, Rutube, YouTube, Telegram, СМИ','Автоматическое определение тональности','Алерт при всплеске негатива — кризис-мониторинг','Охват каждого упоминания','Сравнение упоминаемости с конкурентами'],
+   cant:['От 10 000 руб/мес — дорого для старта','Закрытые группы не мониторит','Тональность иногда определяет неверно'],
+   steps:['Зайди на br-analytics.ru и запроси демо-доступ','Создай проект — введи название своего бренда или конкурента','Добавь ключевые слова: название бренда, имя основателя, название продукта','Настрой источники — ВК, Rutube, Telegram, новости, форумы','Вкладка «Тональность» — смотри соотношение позитива и негатива','Вкладка «Источники» — откуда больше всего упоминаний','Вкладка «Авторы» — кто чаще пишет о конкуренте. Потенциальные гости подкаста','Настрой алерт на всплеск негатива'],
+   focus:['Негатив до 20% — норма для любого бренда','Негатив 20-40% — тревожный сигнал, системная проблема','Негатив выше 40% — репутационный кризис, нужно срочно реагировать','Всплеск за 1 день — признак вирусного скандала. Действуй немедленно'],
+   tips:['Для старта используй бесплатный Google Alerts. Brand Analytics оправдан когда репутация стала активом','Мониторь не только название компании но и имя основателя','Авторы которые пишут о конкурентах — журналисты и блогеры ниши. Выйди на них с предложением интервью']},
+
+  {id:20,name:'YouScan',url:'https://youscan.io',cat:'mentions',tier:'paid',yt:true,
+   desc:'Мониторинг упоминаний с AI-анализом. Не просто собирает — понимает смысл. Выявляет боли аудитории, паттерны жалоб, нарастающие темы. Мониторит YouTube в том числе.',
+   diff:'Думающий аналитик — глубина его сильная сторона. AI понимает иронию и контекст. Brand Analytics собирает больше и быстрее, YouScan понимает глубже. Уникален визуальным распознаванием логотипов. YouTube входит в список источников.',
+   can:['AI-анализ смысла а не только тональности','Выявление болей и паттернов аудитории','Визуальный анализ — находит логотип на фото','Нарастающие темы — публикуй контент раньше конкурентов','Инфлюенсеры — кто авторитетно пишет в нише','Мониторинг YouTube-комментариев и публикаций'],
+   cant:['От $299/мес — премиальный инструмент','Требует времени на настройку','Закрытые источники недоступны'],
+   steps:['Зайди на youscan.io и запроси демо — менеджер покажет возможности','Создай тему мониторинга — введи название бренда или конкурента','Добавь ключевые слова — название, имя основателя, продукт','Вкладка «Инсайты» — смотри автоматические выводы AI о главных темах','Вкладка «Темы» — какие аспекты бренда обсуждают чаще всего','Вкладка «Боли» — что раздражает клиентов конкурента. Твои точки отстройки','Вкладка «Инфлюенсеры» — кто авторитетно пишет о нише'],
+   focus:['Боли клиентов конкурента = готовые темы для эпизодов подкаста','AI видит паттерны которые человек пропустит в тысячах упоминаний','Нарастающие темы — публикуй контент по ним раньше конкурентов','Инфлюенсеры ниши — потенциальные гости подкаста'],
+   tips:['Для старта YouScan не нужен — используй Google Alerts. YouScan оправдан при большом объёме упоминаний','Раздел «Инфлюенсеры» — лучший способ найти авторитетных экспертов для подкаста','AI-анализ болей конкурента = контент-план. Каждая боль = один эпизод с решением','Комбинируй YouScan и Вордстат: YouScan — о чём говорят, Вордстат — что ищут']},
+
+  {id:21,name:'Rutube API',url:'https://help.rutube.ru/api',cat:'auto',tier:'free',
+   desc:'Официальный программный интерфейс Rutube. Позволяет автоматически собирать данные о каналах и видео. 100 каналов вручную — 5 часов. Через API — 5 минут.',
+   diff:'Добывает сырые данные программно. DataFan берёт эти данные и упаковывает в красивые отчёты. API — для сбора данных, DataFan — для их презентации.',
+   can:['Данные любого публичного канала Rutube','Список всех видео с просмотрами и датами','Поиск каналов по ключевому слову','Автоматический сбор по расписанию','Экспорт в структурированный формат'],
+   cant:['Требует базовых технических знаний','Лимиты на количество запросов в день','Документация ещё неполная'],
+   steps:['Зайди на help.rutube.ru/api и прочитай основные разделы','Установи приложение Postman (postman.com) — бесплатный инструмент для работы с API без кода','В Postman создай новый запрос типа GET','Вставь адрес: https://rutube.ru/api/video/?channel_id=НОМЕР_КАНАЛА&format=json','Нажми Send — получишь список видео канала с просмотрами','Скопируй данные → вставь в Excel — получишь таблицу со всеми видео','Для поиска каналов используй: https://rutube.ru/api/search/channel/?query=ЗАПРОС&format=json'],
+   focus:['1-5 каналов — ручной анализ быстрее. 10+ каналов — API экономит часы','API для регулярного мониторинга — настроил один раз и данные обновляются автоматически','Ручной анализ для качества — цифры даёт API, понять ПОЧЕМУ нужно смотреть контент руками'],
+   tips:['Не бойся слова API — для базового использования достаточно скопировать готовый URL в браузер','Попроси Claude написать скрипт под конкретную задачу — займёт минуту','Сохрани шаблонные URL запросов в заметки — быстрый доступ к данным без повторной настройки']},
+
+  {id:22,name:'DataFan',url:'https://datafan.pro',cat:'auto',tier:'paid',
+   desc:'Сервис автоматических отчётов. Подключаешь свои аккаунты — DataFan сам собирает данные и строит красивые дашборды. Один раз настроил — каждую неделю готовый отчёт.',
+   diff:'Упаковывает данные в красивый вид для клиента или руководителя. Не для анализа конкурентов — только свои аккаунты. Rutube API добывает данные, DataFan их презентует.',
+   can:['Автоматические дашборды по расписанию','Мультиплатформенность: ВК, Rutube, Telegram','Выгрузка в Google Sheets автоматически','Шаблоны отчётов для клиентов','Командный доступ по ссылке'],
+   cant:['Только свои подключённые аккаунты','Нет постоянного бесплатного тарифа','Не анализирует конкурентов'],
+   steps:['Зайди на datafan.pro и зарегистрируйся — 7 дней бесплатно','Нажми «Добавить источник» → выбери платформу: ВКонтакте, Rutube или Telegram','Авторизуйся через аккаунт платформы','Выбери шаблон отчёта или создай свой','Настрой период обновления — еженедельно или ежемесячно','Подключи Google Sheets для работы с данными в таблице','Открой доступ клиенту или руководителю по ссылке','Настрой автоотправку отчёта на email — каждую неделю готовый PDF'],
+   focus:['Фрилансер — DataFan делает автоотчёт каждую неделю. Клиент доволен, ты экономишь 2-3 часа','Маркетолог в компании — отправляешь ссылку на дашборд вместо ручной таблицы','Подкаст — все платформы ВК, Rutube, Telegram в одном месте','Когда НЕ нужен — если только начинаешь. Используй бесплатные инструменты пока не вырастешь'],
+   tips:['Используй 7 дней пробного периода чтобы настроить все дашборды и понять нужен ли он тебе','Подключи Google Sheets — данные будут автоматически обновляться в таблице','Отправляй ссылку на дашборд клиенту вместо Excel — выглядит профессионально','DataFan хорош в связке с другими: Popsters анализирует конкурентов, DataFan показывает твои результаты']},
+  {id:23,name:'Стена ВК — ручной метод',url:'https://vk.com',cat:'ads',tier:'free',
+   desc:'Бесплатный способ увидеть рекламные промопосты конкурента прямо сейчас — без регистрации и сервисов. Посты с пометкой «Реклама» хранятся на стене сообщества и доступны публично.',
+   diff:'Самый быстрый старт — занимает 2 минуты и ничего не стоит. vk.barkov.net делает то же самое автоматически, TargetHunter удобнее для регулярного мониторинга нескольких конкурентов. Для разовой проверки одного конкурента — этого достаточно.',
+   can:['Просмотр рекламных постов на стене любого публичного сообщества ВКонтакте','Поиск промопостов через поиск ВК по теме и городу','Не нужна регистрация — работает прямо в браузере','Видно оффер, формат, реакции аудитории, куда ведёт кнопка','Бесплатно и без ограничений по количеству проверок'],
+   cant:['Ручной процесс — нет фильтров, сортировки и выгрузки','Не показывает бюджет и охваты объявления','Скрытые промопосты без публикации на стене не видны'],
+   steps:['Открой страницу конкурента в ВК — например vk.com/frant_barbershop','Перейди на стену сообщества: нажми «Записи» или добавь /wall в адрес страницы','Пролистай посты — ищи пометку «Реклама» под именем сообщества','Кликни на пост — смотри оффер, изображение, текст, кнопку и куда она ведёт','Зафиксируй: заголовок, оффер, формат (фото/видео), куда ведёт кнопка','Через поиск ВК: вкладка «Записи» → введи «барбершоп Екатеринбург» → ищи посты с пометкой Реклама','Повтори для каждого приоритетного конкурента — Frant, Мужики Про, F41','Скопируй ссылки на лучшие рекламные посты — сохрани как референсы'],
+   focus:['Что в заголовке — цена, акция, услуга или эмоция? Это их главный крючок','Куда ведёт кнопка — сайт, сообщения ВК, YCLIENTS или форма? Это вся воронка конкурента','Формат — фото или видео? Что они считают более конвертирующим прямо сейчас','Есть ли геопривязка — адрес, район, метро? Используют ли локацию как аргумент','Реакции — лайки и комментарии. Косвенно говорят зашёл оффер или нет'],
+   tips:['Приоритет для анализа: Frant, Мужики Про, F41 — у них активные соцсети и они в вашей зоне конкуренции','Ищи посты с высоким числом реакций — если много лайков значит оффер цепляет. Разбери почему','Сохраняй скрины лучших рекламных постов конкурентов в папку «Идеи для рекламы»','Смотри на время публикации рекламных постов — когда конкурент запускает рекламу активнее всего']},
+
+    {id:24,name:'vk.barkov.net',url:'https://vk.barkov.net',cat:'ads',tier:'freemium',
+   desc:'Более 300 парсеров целевой аудитории ВКонтакте, Одноклассников и Телеграм. Есть бесплатный тариф с ограниченным объёмом — для старта хватит. Полный доступ: 599 ₽/сутки или 1299 ₽/месяц. Инструменты для рекламных постов: adsposts.aspx (со стены) и promoposts.aspx (из рекламного кабинета).',
+   diff:'Один из старейших и самых широких парсеров ВК — работает с 2014 года. Более 300 инструментов против 30-50 у конкурентов. Стена ВК — вручную по одному посту, barkov.net — весь список автоматически. TargetHunter удобнее для рекламы, barkov.net шире по функционалу парсинга.',
+   can:['Рекламные посты со стены сообщества — adsposts.aspx','Промопосты из рекламного кабинета — promoposts.aspx','Все подписчики любой группы ВК — полный список ID','Люди состоящие в нескольких группах конкурентов одновременно','Недавно вступившие в группы конкурентов — горячая аудитория','Лайкнувшие и сделавшие репост конкретного поста','Поиск похожих групп по теме и аудитории','Работает через браузер — ничего не нужно скачивать','Поддержка Одноклассников и Телеграм'],
+   cant:['Бесплатный тариф ограничен по объёму выдачи — для серьёзных задач нужна оплата','Интерфейс сложный — не для новичков, много инструментов без структуры','Сайт может быть заблокирован на некоторых IP — нужен VPN'],
+   steps:['Зайди на vk.barkov.net — для базового просмотра регистрация не нужна','Для рекламных постов со стены: открой vk.barkov.net/adsposts.aspx','Вставь ссылку на сообщество конкурента → нажми «Получить»','Для промопостов из рекламного кабинета: открой vk.barkov.net/promoposts.aspx','Вставь ту же ссылку — получи посты которые конкурент запускал в ленту чужих пользователей','Для парсинга аудитории: vk.barkov.net/cross.aspx — люди состоящие в нескольких группах','Вставь ссылки на 3-5 групп конкурентов — получи пересечение аудиторий','Для горячей аудитории: vk.barkov.net/new.aspx — недавно вступившие в группы конкурентов','Зарегистрируйся и купи доступ на 24 часа (599 ₽) для разовой задачи или месяц (1299 ₽)'],
+   focus:['adsposts.aspx — рекламные посты со стены: оффер, формат, куда ведёт кнопка','promoposts.aspx — промопосты из кабинета: что конкурент показывает чужой аудитории','cross.aspx — пересечение аудиторий нескольких конкурентов: ядро ЦА ниши','new.aspx — недавно вступившие: самая горячая аудитория которая только что заинтересовалась нишей'],
+   tips:['Начни с бесплатного тарифа — для просмотра рекламных постов и небольшого парсинга хватит','Если нужна разовая задача — купи доступ на 24 часа за 599 ₽ и сделай всё за день','Важно: промопосты ищутся по дате создания а не открутки — расширяй период поиска','Комбинируй инструменты: adsposts для анализа рекламы, cross.aspx для сбора аудитории под таргетинг']},
+{id:25,name:'TargetHunter',url:'https://targethunter.ru',cat:'ads',tier:'paid',
+   desc:'Профессиональный инструмент для анализа рекламы конкурентов в ВК. Раздел «Анализ → Промопосты» находит все продвигаемые посты любого сообщества за выбранный период — с фильтром по дате реальной открутки.',
+   diff:'Самый удобный для регулярного мониторинга нескольких конкурентов — от 18 ₽ в сутки. Ручной метод и barkov.net подходят для разового анализа. TargetHunter нужен если смотришь 5-10 конкурентов каждую неделю или важна точная дата открутки.',
+   can:['Промопосты любого сообщества ВК за выбранный период','Фильтрация по дате открутки а не создания — находит актуальные активные объявления','Анализ аудитории конкурента для настройки своего таргетинга','Парсинг подписчиков активной аудитории и участников событий','Регулярный мониторинг нескольких конкурентов в одном интерфейсе'],
+   cant:['От ~18 ₽ в сутки — платный инструмент требует пополнения баланса','Не показывает бюджет и реальные охваты объявлений','Требует регистрации и времени на освоение интерфейса'],
+   steps:['Зайди на targethunter.ru и зарегистрируйся','Пополни баланс — минимальный тариф около 18 ₽ в сутки','В меню выбери «Анализ» → «Промопосты»','Вставь ссылку на сообщество конкурента','Выбери период — например последние 30 дней','Нажми «Найти» — получишь список всех промопостов конкурента за период','Изучи каждый пост: оффер, формат, текст, кнопка, куда ведёт','Повтори для Frant, Мужики Про, F41 — сравни офферы рядом','Сохрани лучшие посты конкурентов как референсы для своей рекламы'],
+   focus:['Промопосты которые крутятся дольше 2-3 недель — конкурент считает их успешными. Изучи детально','Новые посты за последнюю неделю — что они тестируют прямо сейчас','Сравни офферы трёх главных конкурентов рядом — где незанятая ниша в позиционировании?','Куда ведёт трафик — сайт, анкета, диалог? Это вся воронка конкурента'],
+   tips:['TargetHunter оправдан если анализируешь рекламу конкурентов регулярно. Для разового анализа — barkov.net бесплатно','Ищи посты которые крутятся давно — если конкурент не выключил пост значит он окупается','Используй TargetHunter не только для анализа рекламы но и для парсинга аудитории конкурентов','Комбинируй с Pepper.Ninja: TargetHunter — рекламные посты конкурента, Pepper.Ninja — аудитория']},
+];
+
+const TIER_LABEL = {free:'Бесплатно',freemium:'Freemium',paid:'Платно'};
+const TIER_CLASS  = {free:'badge-free',freemium:'badge-freemium',paid:'badge-paid'};
+
+function buildSections(tools) {
+  const container = document.getElementById('sections');
+  container.innerHTML = '';
+  const cats = ['content','audience','channels','seo','maps','mentions','auto','ads'];
+  let total = 0;
+  cats.forEach(cat => {
+    const ct = tools.filter(t => t.cat === cat);
+    if (!ct.length) return;
+    total += ct.length;
+    const m = CAT_META[cat];
+    const sec = document.createElement('div');
+    sec.className = 'section';
+    sec.innerHTML = `
+      <div class="section-head">
+        <span class="section-icon">${m.icon}</span>
+        <span class="section-title" style="color:${m.color}">${m.title}</span>
+        <div class="section-line"></div>
+        <span class="section-count">${ct.length} инстр.</span>
+      </div>
+      <div class="section-desc">${m.desc}</div>
+      <div class="cards" id="cards-${cat}"></div>
+    `;
+    container.appendChild(sec);
+    const cardsEl = sec.querySelector(`#cards-${cat}`);
+    ct.forEach(t => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.style.setProperty('--accent', m.color);
+      const domain = t.url.replace('https://','').split('/')[0];
+      card.innerHTML = `
+        <div class="card-top">
+          <div class="card-name">${t.name}</div>
+          <div class="card-arrow">↗</div>
+        </div>
+        <div class="card-desc">${t.desc}</div>
+        <div class="card-diff">${t.diff.split('.')[0]}.</div>
+        <div class="card-footer">
+          <span class="badge ${TIER_CLASS[t.tier]}">${TIER_LABEL[t.tier]}</span>
+          ${t.yt ? '<span class="badge badge-yt">YouTube</span>' : ''}
+          <span class="card-url">${domain}</span>
+        </div>
+      `;
+      card.addEventListener('click', () => openModal(t, m));
+      cardsEl.appendChild(card);
+    });
+  });
+  document.getElementById('sVisible').textContent = total;
+  document.getElementById('empty').style.display = total === 0 ? 'block' : 'none';
+}
+
+function openModal(t, m) {
+  document.getElementById('mEyebrow').textContent = m.icon + ' ' + m.title;
+  document.getElementById('mEyebrow').style.color = m.color;
+  document.getElementById('mTitle').textContent = t.name;
+  document.getElementById('mTitle').style.color = m.color;
+  document.getElementById('mUrl').textContent = t.url;
+  document.getElementById('mDesc').textContent = t.desc;
+  document.getElementById('mDiff').textContent = t.diff;
+  document.querySelector('.modal').style.setProperty('--accent-modal', m.color);
+  document.getElementById('mCan').innerHTML = t.can.map(c => `<li>${c}</li>`).join('');
+  document.getElementById('mCant').innerHTML = t.cant.map(c => `<li>${c}</li>`).join('');
+
+  const stepsEl = document.getElementById('mSteps');
+  const stepsSection = document.getElementById('mStepsSection');
+  if (t.steps && t.steps.length) {
+    stepsEl.innerHTML = t.steps.map(s => `<li>${s}</li>`).join('');
+    stepsSection.style.display = 'block';
+  } else { stepsSection.style.display = 'none'; }
+
+  const focusEl = document.getElementById('mFocus');
+  const focusSection = document.getElementById('mFocusSection');
+  if (t.focus && t.focus.length) {
+    focusEl.innerHTML = t.focus.map(s => `<li>${s}</li>`).join('');
+    focusSection.style.display = 'block';
+  } else { focusSection.style.display = 'none'; }
+
+  const tipsEl = document.getElementById('mTips');
+  const tipsSection = document.getElementById('mTipsSection');
+  if (t.tips && t.tips.length) {
+    tipsEl.innerHTML = t.tips.map(s => `<li>${s}</li>`).join('');
+    tipsSection.style.display = 'block';
+  } else { tipsSection.style.display = 'none'; }
+
+  /* FIX 5: was missing backtick template literal wrapper */
+  document.getElementById('mBadges').innerHTML = `<span class="badge ${TIER_CLASS[t.tier]}">${TIER_LABEL[t.tier]}</span>${t.yt ? ' <span class="badge badge-yt">YouTube</span>' : ''}`;
+  const btn = document.getElementById('mBtn');
+  btn.href = t.url;
+  btn.style.background = m.color;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+let activeCat = 'all';
+document.querySelectorAll('.f-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCat = btn.dataset.cat;
+    applyFilters();
+  });
+});
+document.getElementById('search').addEventListener('input', applyFilters);
+
+function applyFilters() {
+  const q = document.getElementById('search').value.toLowerCase().trim();
+  const filtered = TOOLS.filter(t => {
+    const matchCat = activeCat === 'all' || t.cat === activeCat;
+    const matchTier = !activeTier || t.tier === activeTier;
+    const matchQ = !q || t.name.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q) || t.diff.toLowerCase().includes(q) || t.tier.includes(q) || (t.yt && 'youtube'.includes(q));
+    return matchCat && matchTier && matchQ;
+  });
+  buildSections(filtered);
+}
+
+buildSections(TOOLS);
+
+
+// Кликабельные счётчики тиров
+var activeTier = null;
+document.querySelectorAll('.stat-click').forEach(function(st) {
+  st.addEventListener('click', function() {
+    var f = st.dataset.filter;
+    if (activeTier === f) {
+      activeTier = null;
+      document.querySelectorAll('.stat-click').forEach(function(s){ s.classList.remove('active'); });
+    } else {
+      activeTier = f;
+      document.querySelectorAll('.stat-click').forEach(function(s){ s.classList.remove('active'); });
+      st.classList.add('active');
+    }
+    applyFilters();
+  });
+});
+
+</script>
+
+<!-- PWA Install Banner -->
+<div id="installBanner" style="display:none; position:fixed; bottom:0; left:0; right:0; z-index:200; padding:16px 20px; background:linear-gradient(135deg,#0f0f18,#12121e); border-top:1px solid #2a2a42; backdrop-filter:blur(12px);">
+  <div style="max-width:600px; margin:0 auto; display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+    <div style="width:44px; height:44px; border-radius:12px; background:linear-gradient(135deg,#0077ff,#00e5a0); display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0;">📊</div>
+    <div style="flex:1; min-width:160px;">
+      <div style="font-family:'Unbounded',sans-serif; font-size:12px; font-weight:700; color:#e8e8f0; margin-bottom:3px;">Добавить на экран</div>
+      <div style="font-size:11px; color:#5a5a72;">Открывай как приложение — без браузера</div>
+    </div>
+    <div style="display:flex; gap:8px;">
+      <button id="installBtn" style="background:var(--c2); color:#fff; border:none; border-radius:8px; padding:10px 18px; font-family:'Geologica',sans-serif; font-size:12px; font-weight:600; cursor:pointer; white-space:nowrap;">Установить</button>
+      <button id="dismissBtn" style="background:transparent; color:#5a5a72; border:1px solid #2a2a42; border-radius:8px; padding:10px 14px; font-family:'Geologica',sans-serif; font-size:12px; cursor:pointer;">✕</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const manifestData = {
+  "name": "Инструменты маркетолога",
+  "short_name": "Маркетинг",
+  "description": "22 инструмента для анализа конкурентов, аудитории и продвижения",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#08080e",
+  "theme_color": "#08080e",
+  "lang": "ru",
+  "icons": [{
+    "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='40' fill='%2308080e'/%3E%3Crect x='32' y='110' width='22' height='50' rx='6' fill='%230077ff'/%3E%3Crect x='62' y='82' width='22' height='78' rx='6' fill='%23a259ff'/%3E%3Crect x='92' y='60' width='22' height='100' rx='6' fill='%2300e5a0'/%3E%3Crect x='122' y='90' width='22' height='70' rx='6' fill='%23ff6a00'/%3E%3Crect x='152' y='44' width='22' height='116' rx='6' fill='%230077ff'/%3E%3Cpolyline points='43,105 73,77 103,55 133,85 163,39' fill='none' stroke='%23fff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round' opacity='0.7'/%3E%3Ccircle cx='103' cy='55' r='6' fill='%2300e5a0'/%3E%3C/svg%3E",
+    "sizes": "192x192",
+    "type": "image/svg+xml",
+    "purpose": "any maskable"
+  }],
+  "shortcuts": [
+    {"name": "Анализ контента", "url": "./?cat=content"},
+    {"name": "Аудитория", "url": "./?cat=audience"},
+    {"name": "Сайты и SEO", "url": "./?cat=seo"}
+  ]
+};
+
+try {
+  const blob = new Blob([JSON.stringify(manifestData)], {type: 'application/manifest+json'});
+  const manifestURL = URL.createObjectURL(blob);
+  const link = document.createElement('link');
+  link.rel = 'manifest';
+  link.href = manifestURL;
+  document.head.appendChild(link);
+} catch(e) {}
+
+let deferredPrompt = null;
+const banner = document.getElementById('installBanner');
+const installBtn = document.getElementById('installBtn');
+const dismissBtn = document.getElementById('dismissBtn');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  setTimeout(() => {
+    if (deferredPrompt) banner.style.display = 'block';
+  }, 3000);
+});
+
+installBtn.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  banner.style.display = 'none';
+});
+
+dismissBtn.addEventListener('click', () => {
+  banner.style.display = 'none';
+  deferredPrompt = null;
+});
+
+window.addEventListener('appinstalled', () => {
+  banner.style.display = 'none';
+  deferredPrompt = null;
+});
+
+const urlParams = new URLSearchParams(window.location.search);
+const catParam = urlParams.get('cat');
+if (catParam && catParam !== 'all') {
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      const btn = document.querySelector(`.f-btn[data-cat="${catParam}"]`);
+      if (btn) btn.click();
+    }, 100);
+  });
+}
+</script>
+
+<script>
+// Свайп вниз для закрытия модалки
+(function(){
+  var modal = document.getElementById('modal');
+  var startY = 0;
+  modal.addEventListener('touchstart', function(e){ startY = e.touches[0].clientY; }, {passive:true});
+  modal.addEventListener('touchmove', function(e){
+    if(modal.scrollTop <= 0 && e.touches[0].clientY - startY > 70) closeModal();
+  }, {passive:true});
+})();
+// Блок правой кнопки и Ctrl+S
+document.addEventListener('contextmenu', function(e){ e.preventDefault(); return false; });
+document.addEventListener('keydown', function(e){
+  var k = (e.key||'').toLowerCase();
+  if((e.ctrlKey||e.metaKey)&&(k==='s'||k==='u')){e.preventDefault();return false;}
+  if((e.ctrlKey||e.metaKey)&&e.shiftKey&&(k==='i'||k==='j')){e.preventDefault();return false;}
+  if(e.key==='F12'){e.preventDefault();return false;}
+});
+</script>
+</body>
+</html>
